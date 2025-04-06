@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Food Frenzy - Menu & Order</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          background-color: #f5f5f5;
+        }
+
+        /* Header Navbar */
+        header {
+          background-color: #ff6b00;
+          color: white;
+          padding: 20px 30px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: sticky;
+          top: 0;
+          z-index: 1000;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+          font-size: 26px;
+          font-weight: bold;
+        }
+
+        nav a {
+          margin: 0 15px;
+          color: white;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 16px;
+        }
+
+        nav a:hover {
+          text-decoration: underline;
+        }
+
+        h1 {
+          text-align: center;
+          color: #111;
+          margin: 30px 0 20px;
+        }
+
+        .menu-container {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 20px;
+          padding: 0 20px;
+        }
+
+        .menu-card {
+          background: #fff;
+          border-radius: 15px;
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+          width: 280px;
+          overflow: hidden;
+          text-align: center;
+          transition: transform 0.3s ease;
+        }
+
+        .menu-card:hover {
+          transform: translateY(-5px);
+        }
+
+        .menu-card img {
+          width: 100%;
+          height: 180px;
+          object-fit: cover;
+        }
+
+        .menu-card h3 {
+          margin: 10px 0 5px;
+          font-size: 20px;
+          color: #333;
+        }
+
+        .menu-card p {
+          font-size: 14px;
+          color: #777;
+          padding: 0 10px;
+        }
+
+        .price {
+          color: #ff6b00;
+          font-weight: bold;
+          margin: 10px 0;
+        }
+
+        .menu-card button {
+          background-color: #ff6b00;
+          color: white;
+          border: none;
+          padding: 10px;
+          width: 100%;
+          font-size: 16px;
+          border-radius: 0 0 15px 15px;
+          cursor: pointer;
+        }
+
+        .menu-card button:hover {
+          background-color: #e55a00;
+        }
+
+        /* Modal Order Form */
+        .modal {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          background: rgba(0, 0, 0, 0.5);
+          display: none;
+          justify-content: center;
+          align-items: center;
+          z-index: 10;
+        }
+
+        .modal.active {
+          display: flex;
+        }
+
+        .order-form {
+          background: #ffffff;
+          padding: 30px 35px;
+          border-radius: 20px;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+          width: 90%;
+          max-width: 420px;
+          position: relative;
+        }
+
+        .order-form h2 {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        .order-form input,
+        .order-form select {
+          width: 100%;
+          padding: 12px;
+          margin-bottom: 15px;
+          border: 1px solid #ccc;
+          border-radius: 12px;
+        }
+
+        .order-form button[type="submit"] {
+          background-color: #ff6b00;
+          color: white;
+          font-size: 16px;
+          border: none;
+          padding: 14px;
+          border-radius: 12px;
+          cursor: pointer;
+          width: 100%;
+        }
+
+        .order-form button[type="submit"]:hover {
+          background-color: #e55a00;
+        }
+
+        .close-btn {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          font-size: 22px;
+          cursor: pointer;
+          color: #555;
+        }
+
+        .footer-text {
+          text-align: center;
+          margin-top: 12px;
+          font-size: 14px;
+          color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 🔥 Header with Navigation -->
+<header>
+    <div class="logo">🍽️ Food Frenzy</div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<h1 id="menu">🍔 Our Menu</h1>
+
+<div class="menu-container">
+    <div class="menu-card">
+        <img src="/image/pizzajfif.jpg" alt="Pizza">
+        <h3>Margherita Pizza</h3>
+        <p>Classic cheese pizza with fresh tomatoes and basil.</p>
+        <div class="price">$12.99</div>
+        <button onclick="openForm('Pizza')">Add to Order</button>
+    </div>
+
+    <div class="menu-card">
+        <img src="https://images.unsplash.com/photo-1550317138-10000687a72b" alt="Burger">
+        <h3>Classic Burger</h3>
+        <p>Juicy beef patty with cheese, lettuce, tomato, and sauce.</p>
+        <div class="price">$9.99</div>
+        <button onclick="openForm('Burger')">Add to Order</button>
+    </div>
+
+    <div class="menu-card">
+        <img src="/image/Spaghetti Carbonara.jpg" alt="Pasta">
+        <h3>Spaghetti Carbonara</h3>
+        <p>Rich creamy pasta with bacon and cheese.</p>
+        <div class="price">$11.99</div>
+        <button onclick="openForm('Pasta')">Add to Order</button>
+    </div>
+</div>
+
+<!-- 💡 Order Form Modal -->
+<div class="modal" id="orderModal">
+    <form class="order-form" action="http://localhost:8080/placeOrder" method="post">
+        <span class="close-btn" onclick="closeForm()">&times;</span>
+        <h2>🍽️ Place Your Order</h2>
+
+        <input type="text" name="tableNo" placeholder="Enter Table Number" required />
+        <input type="text" name="name" placeholder="Enter Your Name" required />
+        <input type="email" name="email" placeholder="Enter Your Email" required />
+
+        <select name="foodItem" id="foodItemSelect" required>
+            <option value="">Choose a Food Item</option>
+            <option value="Pizza">Pizza</option>
+            <option value="Burger">Burger</option>
+            <option value="Pasta">Pasta</option>
+        </select>
+
+        <input type="number" name="quantity" min="1" placeholder="Enter Quantity" required />
+
+        <button type="submit">Confirm Order</button>
+
+        <p class="footer-text">We will serve you fresh & hot! 😋</p>
+    </form>
+</div>
+
+<script>
+    function openForm(item) {
+      document.getElementById('orderModal').classList.add('active');
+      document.getElementById('foodItemSelect').value = item;
+    }
+
+    function closeForm() {
+      document.getElementById('orderModal').classList.remove('active');
+    }
+</script>
+
+</body>
+</html>
